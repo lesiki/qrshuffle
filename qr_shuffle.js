@@ -3,6 +3,7 @@ var QrShuffle = function() {
 	codes,
 	currentIndex,
 	qrCode,
+	latestInterval,
 	ticker,
 	init = function() {
 		bindListeners();
@@ -23,7 +24,10 @@ var QrShuffle = function() {
 		$('#codes-input').html(rawText);
 		currentIndex = 0;
 		codes = rawText.split('\n');
-		setInterval(tick, 150);
+		if(typeof(latestInterval) !== 'undefined') {
+			clearInterval(latestInterval);
+		}
+		latestInterval = setInterval(tick, 150);
 		showCurrentCodeAndIncrement();
 	},
 	tick = function() {
